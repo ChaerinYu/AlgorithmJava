@@ -40,39 +40,44 @@ public class SWEA_1979 {
 			int[][] deltas = {{1, 0}, {0, 1}};
 			answer = 0;
 			
-			for(int r=0; r<map_size-word_size+1; r++) {
-				for(int c=0; c<map_size-word_size+1; c++) {
+			for(int r=0; r<map_size; r++) {
+				for(int c=0; c<map_size; c++) {
 					
 					// 흰 바탕일 경우, 아래와 오른쪽 확인한다. 
 					if(map[r][c] == 1) {
 
 						for(int l=0; l<2; l++) {
-							int cnt = 0;
+							int cnt = 0; //, nextNr = 0, nextNc = 0;
 							for(int k=0; k<word_size; k++) {
 							
 								int nr = r+deltas[l][0]*k;
 								int nc = c+deltas[l][1]*k;
-								
+
 								if(nr>=0 && nr<map_size && nc>=0 && nc<map_size && map[nr][nc] == 1) {
 									cnt++;
 								} else {
-									break;
+									continue;
 								}
 							}
 							if(cnt == word_size) {
 								// 이전 배열 값 확인 (1이라면 answer취소)
-								int nr = r+deltas[l][0]*(-1);
-								int nc = c+deltas[l][1]*(-1);
+								int nr1 = r+deltas[l][0]*(-1);
+								int nc1 = c+deltas[l][1]*(-1);
+								
+								if((nr1>=0 && nr1<map_size && nc1>=0 && nc1<map_size && map[nr1][nc1] == 1)) {
+//									System.out.println("nr1, nc1: "+nr1+", "+nc1);
+									continue;
+								}
 
+								// 다음 배열 값 확인 (1이라면 answer 취소)
 								int nr2 = r+deltas[l][0]*word_size;
 								int nc2 = c+deltas[l][1]*word_size;
 								
-								if((nr>=0 && nr<map_size && nc>=0 && nc<map_size && map[nr][nc] == 1)) {
-									break;
-								}
 								if((nr2>=0 && nr2<map_size && nc2>=0 && nc2<map_size && map[nr2][nc2] == 1)) {
-									break;
+//									System.out.println("nr2, nc2: "+nr2+", "+nc2);
+									continue;
 								}
+//								System.out.println("r, c: "+r+", "+c);
 								answer++;
 								
 							}
