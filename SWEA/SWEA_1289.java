@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /*
- * [D3] 1289. ������ �޸� �����ϱ�
+ * [D3] 1289. 원재의 메모리 복구하기
  */
 public class SWEA_1289 {
 	

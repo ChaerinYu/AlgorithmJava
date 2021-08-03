@@ -16,8 +16,8 @@ public class BJ_8320 {
 		
 		int N = Integer.parseInt(reader.readLine()); // 정사각형 개수 
 
-		int answer = N;
-		for(int i=2; i<=N/2; i++) {
+		int answer = N; // 1*N (N: 1, 2, 3, .. N)
+		for(int i=2; i<=N/2; i++) { // 19 line에서 길이 1인 거 더해줘서 2부터 시작
 			for(int j=i; j<=N; j++) {
 				if(i*j<= N) {
 					answer++;
