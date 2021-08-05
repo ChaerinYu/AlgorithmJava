@@ -20,8 +20,9 @@ public class BOJ_2493 {
 		
 		// 탑 list
 //		Stack<int[]> stack = new Stack<int[]>();
-		Stack<Integer> stack = new Stack<Integer>();
-		Stack<Integer> tempStack = new Stack<Integer>();
+		// 건물 높이, 위치 둘 다 동시에 push, pop 해준다.
+		Stack<Integer> stack = new Stack<Integer>(); // 건물 높이 저장 
+		Stack<Integer> tempStack = new Stack<Integer>(); // 건물 높이 위치(index) 저장	
 //		LinkedList<Integer> linked = new LinkedList<Integer>();
 		
 		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
@@ -31,23 +32,32 @@ public class BOJ_2493 {
 		for(int i=1; i<=N; i++) {
 			item = Integer.parseInt(st.nextToken());
 			
-			if(stack.isEmpty()) {
-				sb.append(0).append(" ");
+			if(stack.isEmpty()) { // 시작시 stack 비어있는 경우
+				sb.append(0);
+				sb.append(" ");
 				stack.push(item);
 				tempStack.push(i);
 			} else {
+				// 비어있지 않는 경우
 				while(true) {
+					// pop 하다가 empty된 경우
 					if(stack.isEmpty()) {
-						sb.append(0).append(" ");
+						sb.append(0);
+						sb.append(" ");
 						stack.push(item);
 						tempStack.push(i);
 						break;
-					} else if(stack.peek() > item) {
-							sb.append(tempStack.peek()).append(" ");
+					}
+					// 앞 건물(이전 index 건물)이 높은 경우
+					else if(stack.peek() > item) {
+							sb.append(tempStack.peek());
+							sb.append(" ");
 							stack.push(item);
 							tempStack.push(i);
 							break;
-					} else {
+					}
+					// 앞 건물(이전 index 건물)들이 다 낮은 경우
+					else {
 						stack.pop();
 						tempStack.pop();
 					}
