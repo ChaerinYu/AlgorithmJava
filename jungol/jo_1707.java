@@ -25,17 +25,30 @@ public class jo_1707 {
 			int tempR = 0, tempC = 0;
 			int n = 1;
 			int w = 0; // 방향
+			square[0][0] = 1; // 시작값은 넣어주고 시작한다. 
 			while(true) {
-				square[nr][nc] = n++;
-				nr += dir[w][0];
-				nr += dir[w][1];
-				if(nr < 0 || nr >= N || nc < 0 || nc >= N) {
-					
-				}
-				break;
-			}
-			for (int i = 0; i < N; i++) {
+				if(n == N*N) break; // 정사각형에 숫자 다 입력한 경우 while문 종료
 				
+				// 정사각형 범위 안에 입력할 수 있는지 확인한다.
+				tempR = nr+dir[w][0];
+				tempC = nc+dir[w][1];
+				if(tempR < 0 || tempR >= N || tempC < 0 || tempC >= N || square[tempR][tempC] != 0) {
+					w = (w+1)%4;
+					continue;
+				}
+				
+				// 정사각형 값 입력
+				nr += dir[w][0];
+				nc += dir[w][1];
+				square[nr][nc] = ++n;
+			}
+			
+			// 정사각형 그리기
+			for (int r = 0; r < N; r++) {
+				for (int c = 0; c < N; c++) {
+					System.out.print(square[r][c]+" ");
+				}
+				System.out.println();
 			}
 		}
 	}
