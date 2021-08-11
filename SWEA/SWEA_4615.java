@@ -80,23 +80,66 @@ public class SWEA_4615 {
 						nr = pr+br[d]*tempt;
 						nc = pc+bc[d]*tempt;
 						
-						if(nr<1 || nr>N || nc<1 || nc>N) {// || map[nr][nc] == 0) {
+						if(nr<1 || nr>N || nc<1 || nc>N || map[nr][nc] == 0) {
 							break;
 						}
 						
 						// 건너편이 나와 같으면 멈춘다.
+						int temptt = tempt-1;
 						if(map[nr][nc] == ps) {
-							break;
+							int nnr=0, nnc=0;
+							boolean checked = false;
+							while(temptt!=0 || (nnr==pr && nnc==pc)) {
+								nnr = pr+br[d]*temptt;
+								nnc = pc+bc[d]*temptt;
+								if(map[nnr][nnc] == 0) {
+									checked = true;
+									break;
+								}
+//								map[nnr][nnc] = ps; // 사이 값들은 다 내가 두는 돌 색상과 동일하게 변경한다.
+								temptt--;
+//								nnr = pr+br[d]*temptt;
+//								nnc = pc+bc[d]*temptt;
+							}
+							
+							if(!checked) {
+								temptt = tempt-1;
+								while(temptt!=0 || (nnr==pr && nnc==pc)) {
+									nnr = pr+br[d]*temptt;
+									nnc = pc+bc[d]*temptt;
+									map[nnr][nnc] = ps; // 사이 값들은 다 내가 두는 돌 색상과 동일하게 변경한다.
+									temptt--;
+								}
+							}
+//							map[nnr][nnc] = ps; // 사이 값들은 다 내가 두는 돌 색상과 동일하게 변경한다.
+							// 여기까지 진행했으면 이미 돌을 둔 경우 이므로
+							// while문 나가면 for문도 나가게 해준다.
+//							done = true;
+//							break;
 						}
-						map[nr][nc] = ps; // 사이 값들은 다 내가 두는 돌 색상과 동일하게 변경한다.
-						// 여기까지 진행했으면 이미 돌을 둔 경우 이므로
-						// while문 나가면 for문도 나가게 해준다.
-						done = true;
+						
+//						if(map[nr][nc] == ps) {
+//							int nnr = pr+br[d]*(tempt-1);
+//							int nnc = pc+bc[d]*(tempt-1);
+//							
+//							map[nnr][nnc] = ps; // 사이 값들은 다 내가 두는 돌 색상과 동일하게 변경한다.
+//							// 여기까지 진행했으면 이미 돌을 둔 경우 이므로
+//							// while문 나가면 for문도 나가게 해준다.
+////							done = true;
+////							break;
+//						}
+						
 						tempt++;
 					}
-					if(done) {
-						break;
+//					if(done) {
+//						break;
+//					}
+				}
+				for (int ii = 1; ii <= N; ii++) {
+					for (int jj = 1; jj <= N; jj++) {
+						System.out.print(map[ii][jj]+" ");
 					}
+					System.out.println();
 				}
 			}
 			
