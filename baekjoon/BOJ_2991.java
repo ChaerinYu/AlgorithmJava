@@ -34,25 +34,35 @@ public class BOJ_2991 {
 		int LAST = Math.max(P, M);
 		LAST = Math.max(LAST, N);
 		
-		dogs.add(0, new Dog(A, 1));
-		dogs.add(1, new Dog(C, 1));
+		dogs.add(0, new Dog(A, 1)); // 1번째 강아지 A시간동안 공격모드(1)로 세팅
+		dogs.add(1, new Dog(C, 1)); // 2번째 강아지 C시간동안 공격모드(1)로 세팅
+		
 		Dog dog1 = dogs.get(0), dog2 = dogs.get(1);
+		
 		int PA = 0, MA = 0, NA = 0;
+		
 		for(int i=0; i<=LAST; i++) {
+			// 각 배달원 도착할 시간에 강아지 모드는?
 			if(i==P) PA = dog1.mode+dog2.mode;
 			if(i==M) MA = dog1.mode+dog2.mode;
 			if(i==N) NA = dog1.mode+dog2.mode;
 			
 			// 시간 다 됐을 때, dog mode 변경해준다.
+			// 강아지1
 			if(dog1.time == 0) {
-				if(dog1.mode == 1) {
+				if(dog1.mode == 1) { 
+					// 강아지가 공격모드였는데 시간이 끝난 경우 
+					// 이제 쉴 타임
 					dog1.time = B;
 					dog1.mode = 0;
 				} else {
+					// 강아지가 휴식모드였는데 시간이 끝난 경우 
+					// 이제 공격 타임
 					dog1.time = A;
 					dog1.mode = 1;
 				}
 			}
+			// 강아지2
 			if(dog2.time == 0) {
 				if(dog2.mode == 1) {
 					dog2.time = D;
