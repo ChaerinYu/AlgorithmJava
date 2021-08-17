@@ -50,10 +50,12 @@ public class BOJ_2999 {
 		System.out.println();
 	}
 
+	// 행열 크기 찾기
 	private static void findMatrixSize() {
-		int tempMaxR = Integer.MIN_VALUE;
+		
+		int tempMaxR = Integer.MIN_VALUE; // 행 최대값
 		for (int i = 1; i <= len/2; i++) {
-			// R<=C, R*C = N, R이 가장 큰 값
+			// R*C = N, R<=C, R이 가장 큰 값
 			if(len % i == 0 && len/i <= i && tempMaxR<len/i) {
 				C = i;
 				R = len/C;
