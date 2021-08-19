@@ -54,6 +54,12 @@ public class BOJ_10157 {
 			
 			cnt++;
 	    }
+//		for (int i = 1; i <= R; i++) {
+//			for (int j = 1; j <= C; j++) {
+//				System.out.print(seats[i][j]+ " ");
+//			}
+//			System.out.println();
+//		}
 		System.out.println(y+" "+x);
 		
 	}

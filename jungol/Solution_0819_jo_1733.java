@@ -85,7 +85,7 @@ public class Solution_0819_jo_1733 {
 					x = i; y = j;
 					return;
 				}
-//				/ 좌상향 대각선 검사 ** 주의
+//				/ 우상향 대각선 검사 ** 주의
 				cnt = 1; // 연속된 돌의 갯수를 세는 목적
 				k = 1;
 				if(map[i][j] != map[i+1][j-1]) {
