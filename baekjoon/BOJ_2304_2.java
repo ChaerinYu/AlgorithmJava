@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Stack;
 import java.util.StringTokenizer;
-/** TODO
+/** 
  * 2304. 창고 다각형
  * @author user
  * 창고 다각형의 면적이 가장 작은 창고를 만들기를 원한다.
@@ -61,7 +61,7 @@ public class BOJ_2304_2 {
 		// H 최대값 이후로는 내림차순 -> for문 반대로 돌려서 오름차순으로 바꿔줌
 		stack2 = new Stack<Poll>();
 		stack2.push(poll[N-1]); // 마지막 기둥은 넣어준다.
-		for (int i = maxHIdx; i < N; i++) {
+		for (int i = N-2; i > maxHIdx; i--) {
 			if(stack2.peek().H <= poll[i].H) {
 				stack2.push(poll[i]);
 			}
@@ -76,27 +76,20 @@ public class BOJ_2304_2 {
 		int res = 0;
 		Poll prevS1 = stack1.pop();
 		while(!stack1.isEmpty()) {
-			System.out.println("test: "+prevS1.L+", "+prevS1.H);
-			System.out.println("calc1");
 			Poll curS1 = stack1.pop();
 			
 			res += Math.abs(curS1.L-prevS1.L)*Math.abs(curS1.H);
-			System.out.println(res);
 			prevS1 = curS1;
 		}
 		Poll prevS2 = stack2.pop();
 		while(!stack2.isEmpty()) {
-			System.out.println("tes22t: "+prevS2.L+", "+prevS2.H);
-			System.out.println("calc2");
 			Poll curS2 = stack2.pop();
-			System.out.println("testcur: "+curS2.L+", "+curS2.H);
 			
 			res += Math.abs(curS2.L-prevS2.L)*Math.abs(curS2.H);
-			System.out.println(res);
 			prevS2 = curS2;
 		}
 		res += maxH;
-		System.out.println(res);
+//		System.out.println(res);
 		return res;
 	}
 	

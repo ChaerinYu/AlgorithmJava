@@ -2,7 +2,7 @@ package etc;
 /**
  * 정사각형 크기로 각각 색상 몇 개 있는지 세기
  * @author user
- *
+ * divide and conquer
  */
 public class MakeSpaceTest {
 

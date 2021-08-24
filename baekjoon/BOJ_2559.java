@@ -40,7 +40,7 @@ public class BOJ_2559 {
 	static int go() {
 		int sum = 0, max = Integer.MIN_VALUE;
 		for (int i = 0; i < N-K+1; i++) {
-
+			
 			// index 0일때는 for문 전체 합 구하기
 			if(i == 0) {
 				for (int j = i; j < i+K; j++) {

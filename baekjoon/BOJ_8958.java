@@ -13,18 +13,18 @@ public class BOJ_8958 {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int T = Integer.parseInt(br.readLine());
+		int T = Integer.parseInt(br.readLine()); // test case 수
 		
 		for (int tc = 1; tc <= T; tc++) {
-			char[] quiz = br.readLine().toCharArray();
+			char[] quiz = br.readLine().toCharArray(); // 입력과 동시에 char array로
 			
 			int oCnt = 0, score = 0;
 			for (int i = 0; i < quiz.length; i++) {
 				if(quiz[i] == 'O') {
-					oCnt++;
-					score += oCnt;
+					oCnt++; // 누적
+					score += oCnt; // 총점
 				} else {
-					oCnt = 0;
+					oCnt = 0; // 누적 초기화
 				}
 			}
 			System.out.println(score);
