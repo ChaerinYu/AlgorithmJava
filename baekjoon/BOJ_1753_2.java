@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 /**
@@ -19,9 +21,9 @@ import java.util.StringTokenizer;
  * 이는 u에서 v로 가는 가중치 w인 간선이 존재한다는 뜻이다. u와 v는 서로 다르며 w는 10 이하의 자연수이다. 
  * 서로 다른 두 정점 사이에 여러 개의 간선이 존재할 수도 있음에 유의한다.
  * 
- * dijkstra
+ * PriorityQueue
  */
-public class BOJ_1753 {
+public class BOJ_1753_2 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -32,7 +34,6 @@ public class BOJ_1753 {
 		int start = Integer.parseInt(br.readLine()); // 시작점
 		final int INF = Integer.MAX_VALUE;
 		
-//		int[][] edges = new int[V+1][V+1]; // 간선의 정보 -> 시간초과 발생
 		ArrayList<int[]>[] edges = new ArrayList[V+1]; // 가중치 간선 저장
         for(int i=0;i<=V;i++) edges[i] = new ArrayList<int[]>(); // 초기화
         
@@ -45,7 +46,6 @@ public class BOJ_1753 {
 			int w = Integer.parseInt(st.nextToken()); // 가중치
 			
 			edges[from].add(new int[]{to, w});
-//			matrix[from][to] = w;
 		}
 		
 		int[] distance = new int[V+1]; // 시작점에서 index까지의 거리
@@ -54,32 +54,53 @@ public class BOJ_1753 {
 		Arrays.fill(distance, INF); // 최소값을 구하기 위해 INF 입력
 		distance[start] = 0; // 시작위치는 자기 자신이므로 거리가 0
 		
-		int current = -1;
-		for (int i = 1; i <= V; i++) {
-			int min = INF;
-			current = -1;
-			// 방문하지 않은 정점 중 최소 가중치 정점으로
-			for (int j = 1; j <= V; j++) {
-				if(!visited[j] && min>distance[j]) {
-					min = distance[j]; // 최소 가중치 업데이트
-					current = j; // 정점 업데이트
-				}
+		////// PriorityQueue 사용: 우선순위에 따라서 큐 내부 값의 배치가 변경된다.
+		PriorityQueue<int[]> queue = new PriorityQueue<>(new Comparator<int[]>() {
+
+			@Override
+			public int compare(int[] o1, int[] o2) {
+				return o1[1]-o2[1];
 			}
 			
-			// 관련된 접점 없는 경우
-			if(current == -1) break;
-			visited[current] = true; // 선택 정점 방문 처리
+		});
+		// 방문 여부 확인
+//		boolean[] visited = new boolean[V+1];
+		// queue에 시작 node 넣어준다.
+		queue.add(new int[] {start, 0});
+		distance[start] = 0; // 시작점 0 저장 (시작점->시작점 가중치 0)
+		
+		while(!queue.isEmpty()) {
 			
-			for (int j = 0; j < edges[current].size(); j++) {
-				// 방문 아직 안했고, 인접해 있고, distance > min+인접값
-				int to = edges[current].get(j)[0];
-				int w = edges[current].get(j)[1];
-				if(!visited[to] && distance[to]>min+w) {
-						distance[to] = min+w;
+			int[] current = queue.poll(); // 현재 노드, 가중치가 최소인 정점 선택
+			
+			int next = current[0];
+			// 방문한 정점일 경우 탈출;
+			if(visited[next]) continue;
+			
+			// 방문하지 않은 정점이면 방문 처리
+			visited[next] = true;
+			
+			// 선택된 정점의 인접 정점 확인
+			for(int[] node: edges[next]) {
+				// 저장되어 있는 최소 가중치보다 현재 정점에서~인접 정점으로 갈때 가중치가 작으면 갱신
+				// 최소 가중치가 갱신되면, queue 넣어줌.
+				/*
+				if(distance[node[0]] > distance[next] + node[1]) {
+					distance[node[0]] = distance[next] + node[1];
+					queue.add(new int[] {node[0], distance[node[0]]});
 				}
+				*/
+				// 방문 아직 안했고, 기존 시작점에서의 거리가 현재 정점 가중치+다음(인접) 정점보다 크면 갱신
+				if(!visited[node[0]] && distance[node[0]] > current[1]+node[1]) {
+					distance[node[0]] = current[1] + node[1];
+					// priorityqueue에 추가해서 다음 방문 가능하도록
+					queue.add(new int[] {node[0], current[1]+node[1]});
+				}
+				
 			}
-			
 		}
+		
+		
 		
 		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i <= V; i++) {
