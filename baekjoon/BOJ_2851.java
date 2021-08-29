@@ -27,6 +27,7 @@ public class BOJ_2851 {
 			prev = res;
 		}
 		// 만약 100에 가까운 수가 2개라면 (예: 98, 102) 마리오는 큰 값을 선택한다
+		// 100과의 거리가 res(for문 마지막 index까지의 합)가 작거나 같을 경우
 		if(100-prev>=res-100) {
 			System.out.println(res);
 		} else {

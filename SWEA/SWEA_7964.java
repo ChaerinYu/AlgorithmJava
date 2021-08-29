@@ -25,18 +25,16 @@ public class SWEA_7964 {
 				cities[i] = Integer.parseInt(st.nextToken());
 			}
 			
-			int buildingIdx = 0, limit = 0;
+			int limit = 0;
 			int res = 0;
 			for (int i = 0; i < n; i++) {
 				if(cities[i] == 1) {
-					buildingIdx = i; // 최신으로 남아있는 인덱스 업데이트
 					limit = 0;
 				} else {
 					limit++;
 					// 제한거리 꽉 차면 도시 새로 세워준다.
 					if(limit == dist) {
 						limit = 0; // 제한 초기화
-						buildingIdx = i; // 빌딩 세우기
 						res++;
 					}
 				}
