@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
  * 17831. 대기업 승범이네
  * @author Chaerin Yu
  * DP, DFS
+ * 1949. 우수 마을과 유사 한데 더 어렵다.ㅜㅜ
  */
 public class BOJ_17831 {
 
