@@ -71,17 +71,20 @@ public class BOJ_1949_2 {
 		
 		System.out.println(Math.max(dp[1][0], dp[1][1]));
 	}
-	static void dfs(int index, int parent) {
+	static void dfs(int current, int parent) {
 		
-		for (Integer child : town.get(index)) {
+		for (Integer child : town.get(current)) {
 			if (child != parent) {
-				dfs(child, index);
-				dp[index][0] += Math.max(dp[child][0], dp[child][1]);
-				dp[index][1] += dp[child][0];
+				// 자식 노드가 부모 노드가 아니라면, 본인마을은 부모 노드로 세팅하여 dfs 진행
+				dfs(child, current);
+				// 본인 마을이 우수마을이 아니면 인접마을은 우수마을 일 수도 아닐 수도 있다.
+				dp[current][0] += Math.max(dp[child][0], dp[child][1]);
+				// 본인 마을이 우수마을인 경우 인접 마을은 우수 마을이 아님
+				dp[current][1] += dp[child][0];
 			}
 		}
 		
-		dp[index][1] += residents[index];
+		dp[current][1] += residents[current]; // 현재 본인 마을 주민 수 더하기
 		
 	}
 }
