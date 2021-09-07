@@ -56,9 +56,7 @@ public class BOJ_17144 {
 			clearTempMap();
 			
 			spreadDust();
-			print();
 			cleanAir(aircleaner[1],true);
-			print();
 			cleanAir(aircleaner[0],false);
 			
 			copyTempToReal();
@@ -100,94 +98,56 @@ public class BOJ_17144 {
 	 * 공기청정기 아래: 시계
 	 */
 	static void cleanAir(int airR, boolean clock) {
-		int temp = 0, turn = 1;
-		if(clock) {
-			
-			while(true) {
-				
-				// 오른
-				temp = tempMap[airR][C-1];
-				for (int c = C-1; c > 2; c--) {
-					tempMap[airR][c] = tempMap[airR][c-1];
-				}
-				// 아래
-				tempMap[airR+1][C-1] = temp;
-				temp = tempMap[R-1][C-1];
-				for (int r = R-1; r > airR; r--) {
-					tempMap[r][C-1] = tempMap[r-1][C-1];
-				}
-				// 왼
-				tempMap[R-1][C-2] = temp;
-				temp = tempMap[R-1][0];
-				for (int c = 1; c < C-1; c++) {
-					tempMap[airR][c] = tempMap[airR][c-1];
-				}
-				break;
-			}
-			
-		}
-		else {
-			
-		}
-		
-		
-		/*
-		// 시계방향 -> 아래에 있는 공기청정기
+		// 시계방향 (아래)
 		if(clock) {
 
-			// up ↑
-			// 공기청정기 무시하고 시작
-//			tempMap[airR][C-1] = map[airR][C-2];
-			for (int r = R-2; r > airR; r--) {
-				tempMap[r][0] = tempMap[r+1][0];
-			}
-//			tempMap[R-1][0] = tempMap[R-1][1];
-			
-			// left ←
-//			tempMap[airR][C-1] = map[airR-1][C-1];
-			for (int c = C-1; c > 1; c--) {
-				tempMap[airR][c] = tempMap[airR][c-1];
-			}
-			tempMap[airR][1] = 0; // 공기청정기 지나서 옴
-			
-			// down ↓
-//			tempMap[airR][C-1] = map[airR][C-2];
-			for (int r = airR+2; r < R; r++) {
-				tempMap[r][C-1] = tempMap[r-1][C-1];
-			}
-			
-			// right →
-//			tempMap[airR][0] = map[airR+1][0];
-			for (int c = 2; c < C; c++) {
-				tempMap[R-1][c] = tempMap[R-1][c-1];
-			}
-			
-			
+			// (R-1, 0) ~ (airR, 0)
+			for (int i = airR + 1; i < R - 1; i++)
+            {
+                tempMap[i][0] = tempMap[i + 1][0];
+            }
+            // (R-1, 0) ~ (R-1, C-1)
+            for (int i = 0; i < C - 1; i++)
+            {
+                tempMap[R - 1][i] = tempMap[R - 1][i + 1];
+            }
+			// (R-1, C-1) ~ (airR, C-1)
+            for (int i = R - 1; i >= airR; i--)
+            {
+                tempMap[i][C - 1] = tempMap[i - 1][C - 1];
+            }
+            // (airR, 0) ~ (airR, C-1)
+            for (int i = C - 1; i > 1; i--)
+            {
+                tempMap[airR][i] = tempMap[airR][i - 1];
+            }
+            tempMap[airR][1] = 0;
 		}
-		// 반시계방향 -> 위에 있는 공기청정기
+		// 반시계방향 (위)
 		else {
-			
-			// down ↓
-			for (int r = 1; r < airR; r++) {
-				tempMap[r][0] = tempMap[r-1][0];
-			}
-			
-			// left ←
-			for (int c = C-2; c >= 0; c--) {
-				tempMap[0][c] = tempMap[0][c+1];
-			}
-			
-			// up ↑
-			for (int r = R-2; r > 0; r--) {
-				tempMap[r][C-1] = tempMap[r+1][C-1];
-			}
-			
-			// right → 공기청정기 무시하고 시작
-			for (int c = 2; c < C; c++) {
-				tempMap[airR][c] = tempMap[airR][c-1];
-			}
+			// (0, 0) ~ (airR, 0)
+            for (int i = airR - 1; i > 0; i--)
+            {
+                tempMap[i][0] = tempMap[i - 1][0];
+            }
+            // (0, 0) ~ (0, C-1)
+            for (int i = 0; i < C - 1; i++)
+            {
+                tempMap[0][i] = tempMap[0][i + 1];
+            }
+            // (0, C-1) ~ (airR, C-1)
+            for (int i = 1; i <= airR; i++)
+            {
+                tempMap[i - 1][C - 1] = tempMap[i][C - 1];
+            }
+            // (airR, C-1) ~ (airR, 0)
+            for (int i = C - 1; i > 1; i--)
+            {
+                tempMap[airR][i] = tempMap[airR][i - 1];
+            }
+            tempMap[airR][1] = 0;
+
 		}
-		*/
 	}
 	
 	static void print() {
@@ -210,7 +170,7 @@ public class BOJ_17144 {
 				result += map[r][c];
 			}
 		}
-		return result;
+		return result+2; // 공기청정기 -1 2개 빼줘야 됨
 	}
 	
 	/**
