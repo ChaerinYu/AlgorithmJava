@@ -101,7 +101,7 @@ public class BOJ_17144 {
 		// 시계방향 (아래)
 		if(clock) {
 
-			// (R-1, 0) ~ (airR, 0)
+			// (R-1, 0) ~ (airR, 0) 공기청정기 있음
 			for (int i = airR + 1; i < R - 1; i++)
             {
                 tempMap[i][0] = tempMap[i + 1][0];
@@ -112,11 +112,11 @@ public class BOJ_17144 {
                 tempMap[R - 1][i] = tempMap[R - 1][i + 1];
             }
 			// (R-1, C-1) ~ (airR, C-1)
-            for (int i = R - 1; i >= airR; i--)
+            for (int i = R - 1; i > airR; i--)
             {
                 tempMap[i][C - 1] = tempMap[i - 1][C - 1];
             }
-            // (airR, 0) ~ (airR, C-1)
+            // (airR, 0) ~ (airR, C-1) 공기청정기 있음
             for (int i = C - 1; i > 1; i--)
             {
                 tempMap[airR][i] = tempMap[airR][i - 1];
@@ -125,7 +125,7 @@ public class BOJ_17144 {
 		}
 		// 반시계방향 (위)
 		else {
-			// (0, 0) ~ (airR, 0)
+			// (0, 0) ~ (airR, 0) 공기청정기 있음
             for (int i = airR - 1; i > 0; i--)
             {
                 tempMap[i][0] = tempMap[i - 1][0];
@@ -136,11 +136,11 @@ public class BOJ_17144 {
                 tempMap[0][i] = tempMap[0][i + 1];
             }
             // (0, C-1) ~ (airR, C-1)
-            for (int i = 1; i <= airR; i++)
+            for (int i = 0; i < airR; i++)
             {
-                tempMap[i - 1][C - 1] = tempMap[i][C - 1];
+                tempMap[i][C - 1] = tempMap[i + 1][C - 1];
             }
-            // (airR, C-1) ~ (airR, 0)
+            // (airR, C-1) ~ (airR, 0) 공기청정기 있음
             for (int i = C - 1; i > 1; i--)
             {
                 tempMap[airR][i] = tempMap[airR][i - 1];
