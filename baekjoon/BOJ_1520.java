@@ -24,10 +24,10 @@ public class BOJ_1520 {
 	static int M, N; // 지도 크기
 	static int[][] map; // 지도
 	
-	static int[][] dp; // 해당 칸 까지의 count
+	static int[][] dp; // 방문횟수 - 최대 250,000 -> 방문 확인을 위해 -1 로 초기화해준다.
 	
 	static final int[][] delta = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-	static int nr, nc;
+//	static int nr, nc;
 	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -43,45 +43,51 @@ public class BOJ_1520 {
 			st = new StringTokenizer(br.readLine(), " ");
 			for (int c = 0; c < N; c++) {
 				map[r][c] = Integer.parseInt(st.nextToken());
+				dp[r][c] = -1;
 			}
 		}
 		
-//		map[0][0] = 1;
+//		dp[M-1][N-1] = 0; // 여기서 0으로 주게 되면 방문 체크 시 조건에 필터링 됨
 		go(0, 0); // (0, 0)부터 시작
 		
-		System.out.println(dp[M-1][N-1]);
+		System.out.println(dp[0][0]);
 	}
 	
 	// 내리막길만 찾아서 가자
 	static void go(int r, int c) {
+//		System.out.println("r, c: "+r+","+c);
 		// 도착하면 return
-		if(r==M-1 & c==N-1) {
+		if(r==M-1 && c==N-1) {
+			// 내리막길 방문 체크
+			if(dp[r][c] == -1) dp[r][c]++;
 			dp[r][c]++;
 			return;
 		}
 		
-		// 상하좌우 확인
-		for (int i = 0; i < delta.length; i++) {
-			nr = r+delta[i][0];
-			nc = c+delta[i][1];
-			// 지도 범위 벗어나면 continue
-			if(nr<0 || nc<0 || nr>=M || nc>=N) {
-				continue;
-			}
-			// 인접한 지점이 나보다 크거나 같으면 안 감
-			if(map[r][c] <= map[nr][nc]) continue;
+		// 방문 체크
+		if(dp[r][c] == -1) {
 			
-			if(map[r][c] > map[nr][nc]) {
-				System.out.println("r, c: "+r+c);
+			dp[r][c] = 0;
+			
+			// 상하좌우 확인
+			for (int i = 0; i < delta.length; i++) {
+				int nr = r+delta[i][0];
+				int nc = c+delta[i][1];
+				// 지도 범위 벗어나면 continue
+				if(nr<0 || nc<0 || nr>=M || nc>=N) {
+					continue;
+				}
+				// 인접한 지점이 나보다 크거나 같으면 안 감
+				if(map[r][c] <= map[nr][nc]) continue;
 				
-//				if(dp[r][c] < dp[nr][nc]) {
-//					go(nr, nc);
-//					continue;
-//				}
-				
-				dp[r][c]++;
-				go(nr, nc);
+				// 인접한 지점이 아직 방문 안한 곳이면 DFS
+				if(dp[nr][nc] == -1) {
+					go(nr, nc);
+				}
+				// 인접한 지점에서의 경로개수를 현재 지점에 더해준다.
+				dp[r][c] += dp[nr][nc];
 			}
+			
 		}
 	}
 }
