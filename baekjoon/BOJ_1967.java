@@ -5,16 +5,20 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 /**
+ * Study week 2
  * 1967. 트리의 지름
  * @author ChaerinYu
  * 트리에 존재하는 모든 경로들 중에서 가장 긴 것의 길이
+ * https://jaimemin.tistory.com/531
  */
 public class BOJ_1967 {
 
 	static int N; // 노드 수 
-//	static Node[] vertex;
 	static ArrayList<ArrayList<Node>> vertexes = new ArrayList<ArrayList<Node>>();
-	static int[] dp; // 해당 노드에서의 가장 긴 경로의 길이
+	static int res; // 정답 (가장 긴 지름)
+	static int wNode; // 가장 먼 노드
+	
+	static boolean[] visited;
 	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -36,43 +40,42 @@ public class BOJ_1967 {
 			vertexes.get(next).add(new Node(v, w));
 		}
 		
-		// 노드마다 체크
-		dp = new int[N+1];
-//		for (int i = 1; i <= N; i++) {
-			boolean[] visited = new boolean[N+1];
-			int temp = dfs(1, visited);
-//		}
-		int res = 0;
-		for (int i = 1; i <= N; i++) {
-			res = Math.max(res, dp[i]);
-		}
+		// 가장 깊은 노드 중 가중치가 가장 큰 노드를 찾는다.
+		// 찾은 노드를 기준 정점으로 잡고, 다시 한번 가장 가중치가 큰(가장 먼) 노드를 찾는다.
+		res = 0;
+		visited = new boolean[N+1];
+		dfs(1, 0);
+		visited = new boolean[N+1];
+		res = 0;
+		dfs(wNode, 0);
+		
+//		System.out.println(wNode);
 		System.out.println(res);
 	}
 	
-	static int dfs(int index, boolean[] visited) {
-		
-//		if(visited[index]) {
-//			return dp[index];
-//		}
+	static void dfs(int index, int dist) {
+
+		if(visited[index]) return;
 		
 		visited[index] = true;
 		
-		int max = 0;
-		for (int i = 0; i < vertexes.get(index).size(); i++) {
-			Node next = vertexes.get(index).get(i);
-			if(!visited[next.next]) dfs(next.next,visited);
-			if(max<=dp[next.next]) {
-				dp[index] = next.weight;
-			}
-//				max = Math.max(max, next.weight);
+		// 지름 업데이트
+		if(res<dist) {
+			res = dist;
+			wNode = index;
 		}
-//		dp[index] += max;
-		System.out.println("index: "+index+", "+dp[index]);
-		return dp[index];
+		
+		for (Node vertice : vertexes.get(index)) {
+			int next = vertice.next;
+			int weight = vertice.weight;
+			
+			if(!visited[next]) {
+				dfs(next, dist+weight);
+			}
+		}
 	}
 	
 	static class Node {
-//		int vertex;
 		int next;
 		int weight;
 
@@ -80,12 +83,6 @@ public class BOJ_1967 {
 			this.next = next;
 			this.weight = weight;
 		}
-		
-//		public Node(int vertex, Node link, int weight) {
-//			this.vertex = vertex;
-//			this.link = link;
-//			this.weight = weight;
-//		}
 		
 	}
 }
