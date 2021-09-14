@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.PriorityQueue;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 
@@ -46,11 +48,15 @@ public class BOJ_1238 {
 		}
 		
 		int res = 0;
+		// X마을에서 다른 마을(파티 끝나고 집으로 가기)
+		visited = new boolean[N+1];
+		int[] xToI = dijkstra(X);
+		// 집에서 X마을(파티하는 마을)로 가기
 		for (int i = 1; i <= N; i++) {
 			visited = new boolean[N+1];
 			int[] iToX = dijkstra(i);
-			visited = new boolean[N+1];
-			int[] xToI = dijkstra(X);
+			
+			// X <-> i 최대 구하기
 			res = Math.max(res, iToX[X]+xToI[i]);
 		}
 		System.out.println(res);
