@@ -52,7 +52,6 @@ public class BOJ_14501 {
 			counsel[i] = new Counseling(time, pay);
 		}
 		
-		// DP
 		for (int i = 1; i <= N; i++) {
 			// i번째 날 수익
 			makeProfit(i, 0);
