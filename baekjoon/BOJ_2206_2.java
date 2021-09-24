@@ -10,24 +10,18 @@ import java.util.StringTokenizer;
  * 2206. 벽 부수고 이동하기
  * @author ChaerinYu
  * 반례 모음: https://www.acmicpc.net/board/view/66299
- * 맵에서 0은 이동할 수 있는 곳을 나타내고, 1은 이동할 수 없는 벽이 있는 곳을 나타낸다. 
- * 당신은 (1, 1)에서 (N, M)의 위치까지 이동하려 하는데, 이때 최단 경로로 이동하려 한다. 
- * 최단경로는 맵에서 가장 적은 개수의 칸을 지나는 경로를 말하는데, 
- * 이때 시작하는 칸과 끝나는 칸도 포함해서 센다.
- * 만약에 이동하는 도중에 한 개의 벽을 부수고 이동하는 것이 좀 더 경로가 짧아진다면, 벽을 한 개 까지 부수고 이동하여도 된다.
- * 첫째 줄에 N(1 ≤ N ≤ 1,000), M(1 ≤ M ≤ 1,000)이 주어진다. 
- * 다음 N개의 줄에 M개의 숫자로 맵이 주어진다. (1, 1)과 (N, M)은 항상 0이라고 가정하자.
- * 첫째 줄에 최단 거리를 출력한다. 불가능할 때는 -1을 출력한다.
  * 
  * 말이 되고픈 원숭이와 유사
- * 208696KB 1260ms
+ * string -> char
+ * 132112KB 544ms
+ * 
  */
-public class BOJ_2206 {
+public class BOJ_2206_2 {
 
 	static final int[][] delta = {{-1,0},{1,0},{0,-1},{0,1}};
 	
 	static int N, M; // 세로, 가로
-	static int[][] map;
+	static char[][] map;
 	
 	static int res; // 답
 	
@@ -41,13 +35,10 @@ public class BOJ_2206 {
 		N = Integer.parseInt(st.nextToken()); // 세로
 		M = Integer.parseInt(st.nextToken()); // 가로
 		
-		map = new int[N][M]; // 지도
+		map = new char[N][M]; // 지도
 		for (int r = 0; r < N; r++) {
-			String[] tempArr = br.readLine().split("");
-			for (int c = 0; c < M; c++) {
-				// 0은 이동할 수 있는 곳을 나타내고, 1은 이동할 수 없는 벽이 있는 곳
-				map[r][c] = Integer.parseInt(tempArr[c]);
-			}
+			// 0은 이동할 수 있는 곳을 나타내고, 1은 이동할 수 없는 벽이 있는 곳
+			map[r] = br.readLine().toCharArray();
 		}
 		
 		res = -1;
@@ -91,7 +82,7 @@ public class BOJ_2206 {
 					}
 				}
 				// 빈 공간
-				if(map[nr][nc] == 0 && !visited[nr][nc][crash]) {
+				if(map[nr][nc]-'0' == 0 && !visited[nr][nc][crash]) {
 					queue.offer(new int[] {nr, nc, current[2]+1, crash});
 					visited[nr][nc][crash] = true;
 				}
