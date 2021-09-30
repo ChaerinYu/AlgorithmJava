@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
  * Prim's algorithm을 이용할 경우, 자료구조 힙(heap)을 이용해야 한다.
  * Kruskal's algorithm을 이용할 경우, Disjoint Set(서로소 집합) 혹은 Union-Find 알고리즘을 이용해야 한다.
  */
-public class SWEA_3142 {
+public class SWEA_3124 {
 
 	static int T, V, E; // 테스트 개수, 정점, 간선 
 	static Node[] list;
