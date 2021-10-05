@@ -48,7 +48,8 @@ public class BOJ_15661 {
 	}
 	
 	static void combination(int start, int cnt, boolean[] paired) {
-		if(cnt == N/2) {
+		// team1: a, team2: b,c 와 team1: b, c, team1: a 동일하지만 다 돌아감. -> 시간 문제
+		if(cnt == N) {
 			int team1Sum = 0, team2Sum = 0;
 			for (int i = 1; i <= N; i++) {
 				for (int j = 1; j <= N; j++) {
@@ -67,38 +68,21 @@ public class BOJ_15661 {
 			return;
 		}
 		
-		for (int i = start; i <= N; i++) {
-//			 start가 아닌 i로 할 경우 
-//			 team1: {1,2,3}, team2: {4,5,6}
-//			 team2: {1,2,3}, team1: {4,5,6}
-//			 --> 중복 발생하므로 start로 해줌
-			// 위 방식대로 하면 틀렸습니다 뜸 ㅠㅠ
-			team1[cnt] = i;
-			paired[i] = true; // 방문 체크
-			combination(i+1, cnt+1, paired);
-			paired[i] = false; // 방문 체크 해지
-		}
+		// for문 사용시 불필요한 호출횟수 증가
+		// 링크팀 선수 
+		paired[cnt] = true; // 방문 체크
+		combination(start+1, cnt+1, paired);
+		// 스타트팀 선수 
+		paired[cnt] = false; // 방문 체크 해지
+		combination(start+1, cnt+1, paired);
+		
 	}
 	
-	private static String src = "20\r\n" + 
-			"0 3 4 5 2 4 3 4 4 2 4 5 2 2 5 3 5 5 4 5\r\n" + 
-			"4 0 5 5 3 5 4 1 3 3 4 3 4 4 1 4 5 5 2 5\r\n" + 
-			"1 4 0 1 2 5 3 4 5 1 3 2 4 5 4 4 2 3 3 5\r\n" + 
-			"5 1 5 0 5 3 1 2 4 4 2 5 4 2 1 3 5 4 5 1\r\n" + 
-			"1 3 5 1 0 4 1 3 5 5 1 5 2 3 1 4 3 5 5 4\r\n" + 
-			"1 1 3 1 1 0 3 1 5 4 4 2 4 1 2 3 5 2 3 5\r\n" + 
-			"5 5 3 4 5 2 0 5 2 4 4 1 3 2 3 2 3 2 5 1\r\n" + 
-			"1 1 4 5 1 1 3 0 5 1 5 2 5 5 4 3 5 3 2 1\r\n" + 
-			"2 1 5 3 3 2 2 4 0 1 1 4 5 3 5 5 2 2 5 2\r\n" + 
-			"2 4 4 3 3 5 3 2 3 0 4 2 1 3 1 3 4 2 5 3\r\n" + 
-			"4 5 5 2 4 2 3 1 3 2 0 4 4 5 2 1 5 3 3 1\r\n" + 
-			"4 5 4 5 4 1 4 4 2 2 2 0 1 1 5 4 1 4 1 4\r\n" + 
-			"4 4 2 1 3 5 4 4 5 4 3 1 0 3 2 4 5 2 4 3\r\n" + 
-			"2 5 2 2 3 1 3 5 4 4 5 3 4 0 3 1 1 2 2 1\r\n" + 
-			"4 5 3 1 3 3 2 1 4 3 3 2 5 1 0 2 5 2 3 3\r\n" + 
-			"3 2 4 5 3 3 5 3 2 1 5 2 1 2 4 0 2 4 5 5\r\n" + 
-			"5 5 4 1 3 2 2 5 1 2 2 3 2 4 3 4 0 3 3 5\r\n" + 
-			"2 1 4 5 4 5 1 2 4 2 5 5 1 3 5 3 3 0 5 4\r\n" + 
-			"2 5 2 1 2 1 3 4 4 5 3 4 1 5 1 1 2 5 0 1\r\n" + 
-			"3 4 5 5 5 1 5 2 4 1 5 5 2 5 1 5 2 4 3 0";
+	private static String src = "6\r\n" + 
+			"0 6 1 2 3 4\r\n" + 
+			"6 0 5 6 7 8\r\n" + 
+			"9 10 0 1 1 1\r\n" + 
+			"11 12 1 0 1 1\r\n" + 
+			"13 14 1 1 0 1\r\n" + 
+			"15 16 1 1 1 0";
 }
