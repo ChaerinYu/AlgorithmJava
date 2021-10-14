@@ -14,6 +14,7 @@ import java.util.StringTokenizer;
  * 16940. BFS 스페셜 저지
  * @author ChaerinYu
  * 2021.10.11
+ * https://hongjw1938.tistory.com/130
  */
 public class BOJ_16940 {
 
