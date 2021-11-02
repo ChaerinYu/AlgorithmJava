@@ -1,8 +1,6 @@
 package programmers;
 
 import java.util.Arrays;
-import java.util.Deque;
-import java.util.LinkedList;
 
 /**
  * 2021.11.01
@@ -19,20 +17,16 @@ public class 구명보트 {
 	}
 
 	public static int solution(int[] people, int limit) {
-		Deque<Integer> list = new LinkedList<Integer>();
 		Arrays.sort(people);
+		int right = people.length-1;
+		int left = 0;
 		
-		for (int i = 0; i < people.length; i++) {
-			list.offer(people[i]);
-		}
-
-        int answer = 1;
-		while(!list.isEmpty()) {
-			int curWeight = list.pollLast(); // 무거운 사람부터
-			if(curWeight + list.getFirst() <= limit) {
-				list.pollFirst();
-				answer++;
+		int answer = 0;
+		while(right >= left) {
+			if(people[right--]+people[left] <= limit) {
+				left++;
 			}
+			answer++;
 		}
 		/*
 		list.add(people[people.length-1]);
