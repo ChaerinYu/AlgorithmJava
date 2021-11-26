@@ -6,7 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
-
+/**
+ * 이해가 안간다
+ * @author user
+ *
+ */
 public class BOJ_7662 {
 
 	static HashMap<Integer, Integer> map ;
@@ -50,8 +54,10 @@ public class BOJ_7662 {
 			if(map.isEmpty()) {
 				sb.append("EMPTY").append("\n");
 			} else {
-				sb.append(delete(desc)).append(" ");
+				int temp = delete(desc);
+				sb.append(temp).append(" ");
 				if(!map.isEmpty()) sb.append(delete(asc));
+				else sb.append(temp);
 				sb.append("\n");
 			}
 			
@@ -65,7 +71,7 @@ public class BOJ_7662 {
 			res = queue.poll();
 			
 			int cnt = map.getOrDefault(res, 0);
-			if(cnt == 0) continue;
+			if(cnt == 0) continue; // 이거 없으면 왜 오류..?
 			if(cnt > 1) map.put(res, cnt-1);
 			else map.remove(res);
 			break;
