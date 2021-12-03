@@ -1,40 +1,80 @@
 package test;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class Test {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int a = 10;
-		System.out.println(Math.toDegrees(Math.atan2(1, 1)));
-		System.out.println(Math.atan2(1, 1));
-		System.out.println(Math.toRadians(45));
-		System.out.println(Math.sin(Math.toRadians(45)));
-		System.out.println(Math.sin(Math.toRadians(60)));
-		System.out.println(Math.sin(Math.toRadians(30)));
+	
+	static HashMap<Integer, Integer> map;
+	static int N, M;
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		System.out.println("==================================");
-		int x = 1;
-		int y = 1;
-		double z = Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2));
-		        
-		        
-//		double sin = Math.asin(y/z);
-//		System.out.println(sin);
-//		        
-//		double cos = Math.acos(x/z);
-//		System.out.println(cos);
-//		        
-//		double tan = Math.atan((double)y/x);
-//		System.out.println(tan);
+		map = new HashMap<>();
 		
-		double sin = Math.toDegrees(Math.asin(y/z));
-		System.out.println(sin);
-		        
-		double cos = Math.toDegrees(Math.acos(x/z));
-		System.out.println(cos);
-		        
-		double tan = Math.toDegrees(Math.atan((double)y/x));
-		System.out.println(tan);
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		
+		for(int i = 0 ; i < N ; ++i) {
+			st = new StringTokenizer(br.readLine());
+			int from = Integer.parseInt(st.nextToken());
+			int to = Integer.parseInt(st.nextToken());
+			
+			map.put(from, to);
+		}
+		
+		for(int i = 0 ; i < M ; ++i) {
+			st = new StringTokenizer(br.readLine());
+			int from = Integer.parseInt(st.nextToken());
+			int to = Integer.parseInt(st.nextToken());
+			
+			map.put(from, to);
+		}
+		
+		System.out.println(bfs());
 	}
 
+	private static int bfs() {
+		int cnt = 0;
+		boolean[] visited = new boolean[101];
+		Queue<Integer> q = new LinkedList<>();
+		
+		visited[1] = true;
+		q.offer(1);
+		
+		while(!q.isEmpty()) {
+			int size = q.size();
+			
+			for(int i = 0 ; i < size ; ++i) {
+				
+				int cur = q.poll();
+				
+				if(cur == 100) return cnt;
+				
+				for(int add = 1 ; add <= 6 ; ++add) {
+					int next = cur + add;
+				
+					if(next > 100) break;
+					if(visited[next]) continue;
+					
+					if(map.containsKey(next)) {
+						next = map.get(next);
+						if(visited[next]) continue;
+					}
+					
+					q.offer(next);
+					visited[next] = true;
+				}
+			}
+			cnt++;
+		}
+		
+		return cnt;
+	}
 }
