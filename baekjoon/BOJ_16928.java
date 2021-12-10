@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
  * 뱀과 사다리가 존재하는 경우 무조건 올라타야 한다.
  * @author Chaerin Yu
  */
-public class BOJ_16982 {
+public class BOJ_16928 {
 
 	static int N, M; // 사다리, 뱀 수
 	static Move[] moves;
