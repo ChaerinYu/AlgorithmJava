@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
  * @author Chaerin Yu
  * 2021.12.10
  * 1504와 유사
+ * Study 14week
  */
 public class BOJ_1916 {
 
@@ -63,7 +64,7 @@ public class BOJ_1916 {
 			Bus now = pq.poll();
 			int nextCity = now.dest;
 			
-			if(sum[nextCity] < now.cost) continue; // 비용 저렴하지 않은 경우 넘긴다.
+			if(sum[nextCity] < now.cost) continue; // 다음 정류소보다 현재 정류소보다 저렴한 경우 continue
 			
 			for (Bus bus : busList[nextCity]) {
 				if (sum[bus.dest] > sum[nextCity] + bus.cost) {
@@ -76,6 +77,7 @@ public class BOJ_1916 {
 		return sum[dCity];
 	}
 
+	// Comparable<Bus>
 	public static class Bus implements Comparable<Bus>{
 		int dest; // 도착지
 		int cost; // 비용

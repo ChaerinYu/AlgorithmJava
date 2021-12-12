@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
  * 1504. 특정한 최단 경로
  * @author Chaerin Yu
  * bfs X, dijkstra
+ * Study 14week
  */
 public class BOJ_1504 {
 
@@ -51,8 +52,8 @@ public class BOJ_1504 {
 		V1 = Integer.parseInt(st.nextToken()); // 정점1
 		V2 = Integer.parseInt(st.nextToken()); // 정점2
 		
-		int res1 = dijkstra(1, V1) + dijkstra(V1, V2) + dijkstra(V2, N);
-		int res2 = dijkstra(1, V2) + dijkstra(V2, V1) + dijkstra(V1, N);
+		int res1 = dijkstra(1, V1) + dijkstra(V1, V2) + dijkstra(V2, N); // 1->V1 + V1->V2 + V2->N
+		int res2 = dijkstra(1, V2) + dijkstra(V2, V1) + dijkstra(V1, N); // 1->V2 + V2->V1 + V1->N
 		
 		int ans = res1 > res2 ? res2 : res1;
 		ans = ans >= INF ? -1 : ans;
@@ -84,7 +85,7 @@ public class BOJ_1504 {
 			Node now = pq.poll(); // 현재 위치
 			int nextVertex = now.next;
 			
-			if(sum[nextVertex] < now.dist) continue; // 비용 저렴하지 않으면 넘긴다.
+			if(sum[nextVertex] < now.dist) continue; // 다음 정점의 최소 비용이 현재 비용보다 저렴한 경우 continue
 			
 //			if(visited[nextVertex]) continue;
 //			visited[nextVertex] = true;
