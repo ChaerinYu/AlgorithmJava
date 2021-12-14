@@ -16,7 +16,7 @@ public class BOJ_2638 {
 	static final int[][] delta = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 	
 	static int N, M, map[][]; // 세로, 가로, 모눈종이
-	static ArrayList<int[]> cheeseList;
+//	static ArrayList<int[]> cheeseList;
 	static int cheeseCnt;
 	
 	public static void main(String[] args) throws Exception {
@@ -26,29 +26,32 @@ public class BOJ_2638 {
 		N = Integer.parseInt(st.nextToken()); // 세로
 		M = Integer.parseInt(st.nextToken()); // 가로
 		
-		map = new int[N+1][M+1];
+		map = new int[N][M];
 		cheeseCnt = 0;
-		cheeseList = new ArrayList<int[]>();
-		for (int i = 1; i <= N; i++) {
+//		cheeseList = new ArrayList<int[]>();
+		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
-			for (int j = 1; j <= M; j++) {
+			for (int j = 0; j < M; j++) {
 				map[i][j] = Integer.parseInt(st.nextToken());
 				// 치즈
 				if(map[i][j] == 1) {
-					cheeseList.add(new int[] {i, j});
+//					cheeseList.add(new int[] {i, j});
 					cheeseCnt++;
 				}
 			}
 		}
 		
 		
-		for (int i = 0; i < cheeseList.size(); i++) {
-			int[] cheese = cheeseList.get(i);
-			if(map[cheese[0]][cheese[1]] == 1) {
-				bfs(cheese[0], cheese[1]);
-			}
-		}
+//		for (int i = 0; i < cheeseList.size(); i++) {
+//			int[] cheese = cheeseList.get(i);
+//			if(map[cheese[0]][cheese[1]] == 1) {
+//				bfs(cheese[0], cheese[1]);
+//			}
+//		}
 		
+		while(cheeseCnt != 0) {
+			bfs(0, 0);
+		}
 	}
 
 	private static void bfs(int sr, int sc) {
@@ -61,7 +64,18 @@ public class BOJ_2638 {
 		while(!queue.isEmpty()) {
 			int[] now = queue.poll();
 			
+			int cnt = 0;
 			for (int d = 0; d < delta.length; d++) {
+				int nr = now[0]+delta[d][0];
+				int nc = now[1]+delta[d][1];
+				
+				if(nr<0 || nr>=N || nc<0 || nc>=M)
+				
+				if(visited[nr][nc]) continue;
+				
+				if(map[nr][nc]!=0) {
+					
+				}
 			}
 		}
 	}
