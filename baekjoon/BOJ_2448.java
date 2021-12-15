@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
  */
 public class BOJ_2448 {
 
+	static String[] STAR = {"  *  ", " * * ", "*****"};
+	
 	static StringBuilder sb;
 	static int N;
 	
@@ -19,10 +21,19 @@ public class BOJ_2448 {
 		N = Integer.parseInt(br.readLine());
 		
 		sb = new StringBuilder();
-		draw();
-	}
-	
-	private static void draw() {
+
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N-(i/3+1)*3; j++) { 
+				sb.append(" ");
+			}
+			sb.append(STAR[i%3]);
+			for (int j = 0; j < N-(i/3+1)*3; j++) {
+				sb.append(" ");
+			}
+			sb.append("\n");
+			STAR[i%3] = STAR[i%3] + " " + STAR[i%3];
+		}
 		
+		System.out.println(sb.toString());
 	}
 }
