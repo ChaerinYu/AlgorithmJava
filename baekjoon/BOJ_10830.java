@@ -30,6 +30,8 @@ public class BOJ_10830 {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < N; j++) {
 				// MOD로 나눈 나머지값 저장한다.
+				// 각 원소를 1,000으로 나눈 나머지를 출력해야하므로 입력할 때 부터 모듈러연산을 해준다.
+				// ((a % n)*(b % n)) % n => (a*b)%n 
 				matrix[i][j] = Integer.parseInt(st.nextToken()) % MOD;
 //				answer[i][j] = matrix[i][j];
 			}
@@ -82,7 +84,7 @@ public class BOJ_10830 {
 			for (int j = 0; j < N; j++) {
 				for (int k = 0; k < N; k++) {
 					res[i][j] += m1[i][k] * m2[k][j];
-					res[i][j] %= MOD;
+					res[i][j] %= MOD; // 모듈러 연산 해준다. (모듈러 연산 덧셈)
 				}
 			}
 		}
