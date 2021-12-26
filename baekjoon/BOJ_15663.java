@@ -14,8 +14,18 @@ import java.util.StringTokenizer;
  * 
  * 3 1
  * 1 19 2
- * 
  * 결과-> 1 2 19
+ * 
+ * LinkedHashSet이 아닌 TreeSet을 사용하면 안되는 이유
+ * 
+ * 둘 다 정렬이 가능한 Set이라는 점은 동일하지만 LinkedHashSet은 입력순으로 정렬되고, 
+ * TreeSet은 생성시 인자로 Comparator를 넘겨주지 않는다면 기본적으로 오름차순 정렬한다.
+ * 
+ * 따라서, TreeSet을 사용하면 String을 기준으로 오름차순 정렬하기 때문에 
+ * 기존에 숫자가 작은순으로 오름차순 정렬했던 순서가 깨지게 된다.
+ * 
+ * 8 8
+ * 10000 9999 9998 9997 9996 9995 9994 9993
  */
 public class BOJ_15663 {
 
