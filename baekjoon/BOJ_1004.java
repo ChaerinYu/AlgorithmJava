@@ -3,7 +3,12 @@ package baekjoon;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-
+/**
+ * 1004. 어린 왕자
+ * 2021.12.28
+ * @author Chaerin Yu
+ *
+ */
 public class BOJ_1004 {
 
 	static int sx, sy, dx, dy;
